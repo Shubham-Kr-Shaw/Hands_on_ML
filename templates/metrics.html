@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% block title %} Home{% endblock title %}
+{% block body %}
+<div>
+
+</div>
+<div class="goalbox text-center">
+    <h1>Models Created</h1>
+    <p>Type of the Model : {{x.modelType}}</p>
+    <p>Name of the Model : {{x.modelName}}</p>
+    <div class="row">
+        <div class="col-50">
+            <a href="{{x.weights}}model.pkl" download>
+                <button alt="download weights" class="but" style="float: none;">Download Weights</button>
+            </a>
+        </div>
+        {%for data in mydata%}
+        {%if data.common == x.common%}
+        <div class="col-50">
+            <a href="{{data.dftrain}}" download>
+                <button alt="download clean data" class="but" style="float: none;">Download Clean Data</button>
+            </a>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+
+<div class="centertable">
+    <table class="styled-table">
+        {% set var = x.modelType %}
+        {% if var == "classification" %}
+        <thead>
+            <tr>
+                <th>Performance Metrics - Classification</th>
+                <th>Points</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="active-row">
+                <td>Accuracy</td>
+                <td>{{y.accuracy}}</td>
+            </tr>
+            <tr>
+                <td>F1 Score</td>
+                <td>{{y.f1score}}</td>
+            </tr>
+            <tr>
+                <td>Precision</td>
+                <td>{{y.precision}}</td>
+            </tr>
+            <tr>
+                <td>Recall</td>
+                <td>{{y.recall}}</td>
+            </tr>
+        </tbody>
+        {% else %}
+        <thead>
+            <tr>
+                <th>Performance Metrics - Regression</th>
+                <th>Points</th>
+            </tr>
+
+        </thead>
+        <tbody>
+            <tr>
+                <td>RMSE Score</td>
+                <td>{{y.rmse}}</td>
+            </tr>
+            <tr class="active-row">
+                <td>R2 Score</td>
+                <td>{{y.r2}}</td>
+
+            </tr>
+        </tbody>
+        {% endif %}
+    </table>
+</div>
+
+<style>
+    .centertable {
+        margin-left: 28%;
+        margin-right: 28%;
+    }
+
+    .styled-table {
+        border-collapse: collapse;
+        margin: 25px 100px;
+        font-size: 0.9em;
+        font-family: sans-serif;
+        min-width: 400px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .styled-table thead tr {
+        background-color: #009879;
+        color: #ffffff;
+        text-align: left;
+    }
+
+    .styled-table th,
+    .styled-table td {
+        padding: 12px 15px;
+    }
+
+    .styled-table tbody tr {
+        border-bottom: 1px solid #dddddd;
+    }
+
+    .styled-table tbody tr:nth-of-type(even) {
+        background-color: #f3f3f3;
+    }
+
+    .styled-table tbody tr:last-of-type {
+        border-bottom: 2px solid #009879;
+    }
+
+    .styled-table tbody tr.active-row {
+        font-weight: bold;
+        color: #009879;
+    }
+
+    .button {
+        background-color: #4CAF50;
+        /* Green */
+        border: none;
+        color: white;
+        padding: 16px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+    }
+
+    .button1 {
+        background-color: white;
+        color: black;
+        border: 2px solid #4CAF50;
+    }
+</style>
+
+{% endblock body %}
